@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.js</title>
+    <link rel="stylesheet" href="./css/general.css">
+    <script src="./js/textarea.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Node.js</h1>
+    </header>
+    <main>
+        <nav id="nav">
+            <h2>Introduction to Node.js</h2>
+            <section>
+                <a href="#settingupnode">Setting up Node</a>
+                <a href="#repl">Node REPL</a>
+                <a href="#global">Node global object</a>
+                <a href="#runningaprogram">Running a program with Node</a>
+                <a href="#coremodules">Core modules</a>
+                <a href="#consolemodule">The Console Module</a>
+                <a href="#processmodule">The Process Module</a>
+                <a href="#processmodule2">The Process Module (2)</a>
+                <a href="#osmodule">The OS Module</a>
+                <a href="#osmodule2">The OS Module (2)</a>
+                <a href="#utilmodule">The Util Module</a>
+                <a href="#utilmodule2">The Util Module (2)</a>
+                <a href="#npm">Node Package Manager</a>
+                <a href="#npm2">Node Package Manager (2)</a>
+                <a href="#implementingmodules">Implementing modules</a>
+            </section>
+            <section>
+                <a href="#nodeessentials">Node.js essentials</a>
+            </section>
+        </nav>
+        <article id="settingupnode">
+            <h2>Setting up Node</h2>
+            <a href="https://nodejs.org/en/" target="_blank">https://nodejs.org/en/</a>
+            <pre class="code-block"><code>which node</code></pre>
+            <pre class="code-block"><code>node -v</code></pre>
+        </article>
+        <article id="repl">
+            <h2>The Node REPL</h2>
+            <p>read-eval-print loop</p>
+            <pre class="code-block"><code>$ node
+> console.log('Hello World')</code></pre>
+            <pre class="code-block"><code>$ node
+> .editor
+const greeting = 'Hello World'
+console.log(greeting)</code></pre>
+            <p>Ctrl + d</p>
+        </article>
+        <article id="global">
+            <h2>JavaScript global objects</h2>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects" target="_blank">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects</a>
+            <h2>Node global object</h2>
+            <a href="https://nodejs.org/api/globals.html" target="_blank">https://nodejs.org/api/globals.html</a>
+            <pre class="code-block"><code>$ node
+> console.log(global)</code></pre>
+            <pre class="code-block"><code>> global</code></pre>
+            <pre class="code-block"><code>> Object.keys(global)</code></pre>
+            <p>add property to global:</p>
+            <pre class="code-block"><code>global.cat = 'meow!'
+> console.log(global.cat)</code></pre>
+        </article>
+        <article id="runningaprogram">
+            <h2>Running a program with Node</h2>
+            <pre class="code-block"><code>$ node kitten.js</code></pre>
+        </article>
+        <article id="coremodules">
+            <h2>Core modules</h2>
+            <p>modularity - different modules to build a cohesive whole</p>
+            <p>built-in modules = core modules</p>
+            <pre class="code-block"><code><span class="code-comment">// Require in the 'events' core module:</span>
+<span class="code-keyword">const</span> <span class="code-variable">events</span> = <span class="code-function">require</span>(<span class="code-string">'events'</span>);</code></pre>
+<pre class="code-block"><code>$ node
+> require('module').builtinModules</code></pre>
+        <a href="https://www.w3schools.com/nodejs/ref_modules.asp" target="_blank">https://www.w3schools.com/nodejs/ref_modules.asp</a>
+        </article>
+        <article id="consolemodule">
+            <h3>The Console Module</h3>
+            <p>print messages to the terminal</p>
+            <pre class="code-block"><code>console.log()</code></pre>
+            <p>print a message to the terminal if the value is falsy</p>
+            <pre class="code-block"><code>console.assert()</code></pre>
+            <p>print out a table in the terminal from an object or array</p>
+            <pre class="code-block"><code>console.table()</code></pre>
+        </article>
+        <article id="processmodule">
+            <h3>The Process Module</h3>
+            <p>stores and controls information about the environment in which the process is currently running</p>
+            <pre class="code-block"><code>process.env</code></pre>
+            <p>convention: add property with key <code>NODE_ENV</code> and value of either <code>production</code> or <code>depelopment</code></p>
+            <pre class="code-block"><code>if (process.env.NODE_ENV === 'development'){
+    console.log('Testing! Testing! Does everything work?');
+}</code></pre>
+        </article>
+        <article id="processmodule2">
+            <h3>The Process Module (2)</h3>
+            <p>get the current working directory</p>
+            <pre class="code-block"><code>process.cwd()</code></pre>
+            <p>information on memory demands of current process</p>
+            <pre class="code-block"><code>process.memoryUsage()</code></pre>
+            <p>how many bytes of memory the current process is using</p>
+            <pre class="code-block"><code>process.memoryUsage().heapUsed</code></pre>
+            <p>array of command line values provided when the current process was initiated: (1) absolute path to Node, which ran the process (2) path to the file that’s running (3+) any command line arguments provided when the process was initiated</p>
+            <pre class="code-block"><code>process.argv</code></pre>
+            <a href="https://nodejs.org/api/process.html" target="_blank">https://nodejs.org/api/process.html</a>
+        </article>
+        <article id="osmodule">
+            <h3>The OS Module</h3>
+            <p>operating system information</p>
+            <pre class="code-block"><code>const os = require('os');</code></pre>
+            <p>return computer's operating system</p>
+            <pre class="code-block"><code>os.type()</code></pre>
+            <p>return computer's cpu architecture</p>
+            <pre class="code-block"><code>os.arch()</code></pre>
+            <p>return information about network interfaces</p>
+            <pre class="code-block"><code>os.networkInterfaces()</code></pre>
+        </article>
+        <article id="osmodule2">
+            <h3>The OS Module (2)</h3>
+            <p>return information about the current working directory</p>
+            <pre class="code-block"><code>os.homedir()</code></pre>
+            <p>return information about the current user</p>
+            <pre class="code-block"><code>os.userInfo()</code></pre>
+            <p>return hostname of the operating system</p>
+            <pre class="code-block"><code>os.hostname()</code></pre>
+            <p>return system uptime</p>
+            <pre class="code-block"><code>os.uptime()</code></pre>
+            <a href="https://nodejs.org/docs/latest-v14.x/api/os.html" target="_blank">https://nodejs.org/docs/latest-v14.x/api/os.html</a>
+        </article>
+        <article class="utilmodule">
+            <h3>The Util Module</h3>
+            <p>utility functions - used to maintain and debug code</p>
+            <pre class="code-block"><code>const util = require('util');</code></pre>
+            <a href="https://nodejs.org/api/util.html" target="_blank">https://nodejs.org/api/util.html</a>                
+        </article>
+        <article class="utilmodule2">
+            <h3>util.types</h3>
+            <p>type checks for different kinds of built-in objects</p>
+            <pre class="code-block"><code>const today = new Date();
+const earthDay = 'April 22, 2022';
+
+console.log(util.types.isDate(today)); // true
+console.log(util.types.isDate(earthDay)); // false</code></pre>
+            <h3>util.promisify</h3>
+            <p>convert a callback-based function to a promise-based function</p>
+            <pre class="code-block"><code>const callbackPromise = util.promisify(callbackFunction);</code></pre>   
+        </article>
+        <article id="npm">
+            <h2>Node Package Manager</h2>
+            <p>package manager for node.js | dependencies</p>
+            <a href="https://www.npmjs.com/" target="_blank">https://www.npmjs.com/</a>
+            <pre class="code-block"><code>npm -v</code></pre>
+            <h2>Initializing a node.js app</h2>
+            <pre class="code-block"><code>npm init</code></pre>
+            <p>package.json with information about project</p>
+            <a href="https://docs.npmjs.com/cli/v7/configuring-npm/package-json" target="_blank">https://docs.npmjs.com/cli/v7/configuring-npm/package-json</a>
+            <p><code>"dependencies"</code> dictionary</p>
+        </article>
+        <article id="npm2">
+            <h2>Installing a package</h2>
+            <p>install a package locally</p>
+            <pre class="code-block"><code>npm install nodemon</code></pre>
+            <a href="https://www.npmjs.com/package/nodemon" target="_blank">https://www.npmjs.com/package/nodemon</a>
+            <p>install as development dependency</p>
+            <pre class="code-block"><code>npm install nodemon --save-dev</code></pre>
+            <p>install a package globally</p>
+            <pre class="code-block"><code>npm install http-server -g</code></pre>
+            <a href="https://docs.npmjs.com/cli/v7/configuring-npm/folders" target="_blank">https://docs.npmjs.com/cli/v7/configuring-npm/folders</a>
+            <p>install all packages from a package.json</p>
+            <pre class="code-block"><code>npm i</code></pre>
+            <pre class="code-block"><code>npm i --production</code></pre>
+        </article>
+        <article id="implementingmodules">
+            <h2>Implementing Modules in Node
+            </h2>
+            <a href="https://nodejs.org/docs/latest-v14.x/api/modules.html" target="_blank">https://nodejs.org/docs/latest-v14.x/api/modules.html</a>
+            <a href="#moduleexports">module.exports</a>
+            <a href="#require">require()</a>
+            <a href="#objectdestruction">Object Destruction</a>
+        </article>
+        <article id="moduleexports">
+            <h3>module.exports</h3>
+            <pre class="code-block"><code>/* shape-area.js */
+const PI = Math.PI;
+
+// Define and export circleArea() and squareArea() below
+module.exports.circleArea = radius => PI * radius * radius;
+module.exports.squareArea = side => side**2;</code></pre>
+        </article>
+        <article id="require">
+            <h3>require()</h3>
+            <pre class="code-block"><code>/* app.js */ 
+
+const radius = 5;
+const sideLength = 10;
+
+// Option 1: import the entire shape-area.js module here.
+
+const areaFunctions = require('./shape-area.js');
+                
+// use the imported .circleArea() and .squareArea() methods here
+
+const areaOfCircle = areaFunctions.circleArea(radius);
+
+const areaOfSquare = areaFunctions.squareArea(sideLength);</code></pre>
+        </article>
+        <article id="objectdestruction">
+            <h3>Object Destruction</h3>
+            <pre class="code-block"><code>/* app.js */
+
+const radius = 5;
+const sideLength = 10;
+                
+// Option 2: import circleArea and squareArea with object destructuring
+
+const { circleArea, squareArea } = require('./shape-area.js');
+
+// use the imported .circleArea() and .squareArea() methods here
+
+const areaOfCircle = circleArea(radius);
+
+const areaOfSquare = squareArea(10);</code></pre>
+        </article>
+        <nav id="nodeessentials">
+            <h1>Node.js essentials</h1>
+            <a href="#eventsmodule">The Events Module</a>
+        </nav>
+        <article id="eventsmodule">
+            <h2>The Events Module</h2>
+            <p>event-emitter module</p>
+            <pre class="code-block"><code>// Require in the 'events' core module
+const events = require('events');
+// Create an instance of the EventEmitter class
+const myEmitter = new events.EventEmitter();
+
+let newUserListener = (data) => {
+    console.log(`We have a new user: ${data}.`);
+};
+   
+// Assign the newUserListener function as the listener callback for 'new user' events
+myEmitter.on('new user', newUserListener)
+   
+// Emit a 'new user' event
+myEmitter.emit('new user', 'Lily Pad') //newUserListener will be invoked with 'Lily Pad'</code></pre>
+            <a href="https://nodejs.org/api/events.html" target="_blank">https://nodejs.org/api/events.html</a>
+        </article>
+        <article>
+            <h2>User Input/Output</h2>
+            <pre class="code-block"><code>let {testNumber} = require('./game.js');
+
+process.stdout.write("I'm thinking of 
+a number from 1 through 10. 
+What do you think it is? 
+\n(Write \"quit\" to give up.)
+\n\nIs the number ... ");
+
+let playGame = (userInput) => {
+    let input = userInput.toString().trim();
+    testNumber(input);
+};
+                
+process.stdin.on('data', playGame);</code></pre>
+            <a href="https://nodejs.org/api/buffer.html#buffer_buffer" target="_blank">https://nodejs.org/api/buffer.html#buffer_buffer</a>
+        </article>
+
+    </main>
+</body>
+</html>
